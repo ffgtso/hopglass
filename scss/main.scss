@@ -36,6 +36,21 @@ $buttondistance: 12pt;
   }
 }
 
+.warning {
+  background: #c20000;
+  border-radius: 5px;
+  color: #fff;
+  font-size: 110%;
+  font-weight: bold;
+  text-color: #FFFFFF;
+  a:link {color: #FFFFFF}
+  a:visited {color: #AAAAAA}
+  a:hover {color: #CCCCCC;}
+  a:active {color: #C0F0FC}
+  padding: 10px;
+  text-align: center;
+}
+
 .tabs, header {
   background: rgba(0, 0, 0, 0.02);
 }
