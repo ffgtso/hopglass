@@ -37,6 +37,21 @@ $buttondistance: 12pt;
 }
 
 .warning {
+  background: #FF9900;
+  border-radius: 5px;
+  color: #fff;
+  font-size: 100%;
+  font-weight: bold;
+  text-color: #FFFFFF;
+  a:link {color: #FFFFFF}
+  a:visited {color: #333333}
+  a:hover {color: #8C8C8C;}
+  a:active {color: #B36B00}
+  padding: 10px;
+  text-align: center;
+}
+
+.eolwarning {
   background: #c20000;
   border-radius: 5px;
   color: #fff;
