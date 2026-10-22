@@ -2,7 +2,7 @@
   "name": "hopglass",
   "version": "1.0.0",
   "scripts": {
-    "test": "node -e \"require('grunt').cli()\" '' clean lint"
+    "test": "node test-links.js && node test-map.js && node -e \"require('grunt').cli()\" '' clean lint"
   },
   "devDependencies": {
     "autoprefixer": "^6.3.3",

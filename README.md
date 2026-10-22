@@ -209,3 +209,28 @@ Example for `domainNames`:
       { "domain": "ffal-ost", "name": "Atlantis-Ost" },
       { "domain": "ffal-west", "name": "Atlantis-West" }
     ]
+
+## Wireless link frequency
+
+Wireless links may include an optional numeric `frequency` in MHz in
+`graph.json` (version 1). HopGlass displays 2400 <= frequency < 2500 as
+`WiFi (2,4 GHz)` and 5000 <= frequency < 5900 as `WiFi (5 GHz)`. Missing,
+invalid or unsupported frequencies retain the generic `WiFi` label.
+The frequency must describe the actual link interface; node-wide radio or
+client statistics cannot reliably identify a link on a dual-band node.
+
+The unmodified HopGlass Server does not export this field. The accompanying
+server patch forwards `neighbours.wifi[receiving_interface_mac].frequency`
+from respondd; the accompanying Gluon patch adds that optional field.
+Existing firmware and servers remain compatible, but without this metadata
+HopGlass cannot distinguish the bands.
+
+## VPN uplinks on the map
+
+Online nodes with `flags.uplink` have a solid light-blue, four-pixel outline
+and a `VPN-Uplink` suffix in their tooltip. New nodes retain their green fill;
+offline nodes retain their existing status style. Selecting a node temporarily
+uses the existing orange highlight. The topology graph already distinguishes
+uplink nodes in light blue. Detection continues to use the existing incoming
+VPN-link semantics (including unknown peers); this is a tunnel connection,
+not a test of Internet reachability.
