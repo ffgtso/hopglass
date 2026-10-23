@@ -27,8 +27,8 @@ async function prepare(graph) {
 
 async function run() {
   const cases = [
-    [2412, "WiFi (2,4 GHz)"], [2484, "WiFi (2,4 GHz)"],
-    [5180, "WiFi (5 GHz)"], [5885, "WiFi (5 GHz)"],
+    [2412, "WiFi (2G4)"], [2484, "WiFi (2G4)"],
+    [5180, "WiFi (5G)"], [5885, "WiFi (5G)"],
     [undefined, "WiFi"], [null, "WiFi"], ["2412", "WiFi"],
     [0, "WiFi"], [2500, "WiFi"], [5900, "WiFi"], [5955, "WiFi"]
   ]
