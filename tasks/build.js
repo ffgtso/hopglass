@@ -1,4 +1,5 @@
 module.exports = function(grunt) {
+  const buildDate = new Date().toISOString()
   grunt.config.merge({
     nodedir: "node_modules",
     copy: {
@@ -7,6 +8,7 @@ module.exports = function(grunt) {
           process: function (content) {
             const placeholder = new RegExp("#revision#", "g")
             return content.replace(placeholder, grunt.option("gitRevision"))
+              .replace(/#build-date#/g, buildDate)
           }
         },
         src: ["*.html"],
