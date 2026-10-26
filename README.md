@@ -12,42 +12,40 @@ HopGlass is a frontend for the [HopGlass Server](https://github.com/hopglass/hop
 ![](doc/links.png?raw=true)
 ![](doc/statistics.png?raw=true)
 
-# Dependencies
+# Build on Debian 13 (trixie)
 
-- NodeJS
-- yarn
+Install Debian's security updates and build tools:
 
-# Installing dependencies
+    sudo apt-get update
+    sudo apt-get install nodejs npm git ca-certificates
 
-On Debian-like systems run:
+Node.js >= 20.19.0 is required. Debian 13 supplies Node.js 20.19.2 with
+Debian security patches; keep `trixie-security` enabled. Build as an ordinary
+user, using the committed npm lockfile:
 
-    sudo apt-get install nodejs yarn
-
-**Note:** The official Debian packages for NodeJS are quite old, you might want to check at [NodeSource](https://github.com/nodesource/distributions/blob/master/README.md) for current binaries installable with your distribution's package manager.
-
-On Mac you can install nodejs and yarn via brew:
-
-    /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
-    brew install node
-    brew install yarn
-
-On Arch Linux you can install nodejs and yarn via pacman:
-
-    sudo pacman -S nodejs yarn
-
-Execute these commands on your server as a normal user to prepare the dependencies:
-
-    git clone https://github.com/hopglass/hopglass
+    git clone https://github.com/ffgtso/hopglass.git
     cd hopglass
-    yarn install
+    npm ci --ignore-scripts
+    npm test
+    npm audit
+    npm run build
 
-# Building
+The build produces `build/`. Copy `config.json.example` to `build/config.json`
+and adapt it to your community. Subsequent builds preserve that configuration.
+Only deploy the contents of `build/` through a maintained static HTTP server
+such as Debian's nginx. Node.js and node_modules are build-time requirements;
+they do not need to be deployed. Do not expose the repository or node_modules.
 
-Just run the following command from the hopglass directory:
+For a local preview, install `python3` and run `npm run serve`, then open
+http://127.0.0.1:8080/. This loopback-only preview is not a production server.
+The former Grunt/Yarn workflow and live reload have been removed.
 
-    node_modules/.bin/grunt
+`package-lock.json` is the authoritative dependency lock. Use `npm ci`, not
+Yarn, for reproducible installs. Run `npm audit` again when deploying, because
+advisories can change. See `SECURITY-REVIEW.md` for findings and limitations.
+A repeatable native Debian build is provided in `Dockerfile.debian13-test`:
 
-This will generate `build/` containing all required files.
+    docker build -f Dockerfile.debian13-test .
 
 # Configure
 

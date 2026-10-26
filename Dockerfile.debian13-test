@@ -1,0 +1,8 @@
+FROM debian:13-slim
+RUN apt-get update && apt-get install -y --no-install-recommends nodejs npm git ca-certificates \
+    && rm -rf /var/lib/apt/lists/*
+RUN useradd --create-home builder
+WORKDIR /home/builder/hopglass
+COPY --chown=builder:builder . .
+USER builder
+RUN node --version && npm --version && npm ci --ignore-scripts && npm test && npm run build && npm audit

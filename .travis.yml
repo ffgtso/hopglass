@@ -1,7 +1,10 @@
 language: node_js
 node_js:
-  - "lts/*"
-  - "node"
+  - "20"
+  - "24"
 install:
-  - yarn
-script: node_modules/.bin/grunt
+  - npm ci --ignore-scripts
+script:
+  - npm test
+  - npm run build
+  - npm audit
