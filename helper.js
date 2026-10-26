@@ -1,3 +1,21 @@
+// Leaflet.label treats strings as HTML, including node-supplied hostnames.
+function escapeHTML(value) {
+  return String(value).replace(/[&<>"']/g, function (c) {
+    return {"&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;"}[c]
+  })
+}
+
+function safeWebURL(value) {
+  if (typeof value !== "string" || !/^https?:\/\//i.test(value) || /[\u0000-\u0020\u007f]/.test(value))
+    return null
+  try {
+    var url = new URL(value)
+    return (url.protocol === "http:" || url.protocol === "https:") && url.hostname ? url.href : null
+  } catch (e) {
+    return null
+  }
+}
+
 function get(url) {
   return new Promise(function(resolve, reject) {
     var req = new XMLHttpRequest()
@@ -213,6 +231,7 @@ function showStat(o, subst) {
   if (o.href) {
     var link = document.createElement("a")
     link.target = "_blank"
+    link.rel = "noopener noreferrer"
     link.href = listReplace(o.href, subst)
     link.appendChild(content)
 
