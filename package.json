@@ -2,67 +2,35 @@
   "name": "hopglass",
   "version": "1.0.0",
   "scripts": {
-    "test": "node test-links.js && node test-map.js && node -e \"require('grunt').cli()\" '' clean lint"
+    "test": "node test-links.js && node test-map.js && node test-security.js && npm run lint",
+    "lint": "eslint app.js lib scripts eslint.config.cjs",
+    "build": "npm run lint && node scripts/build.cjs",
+    "serve": "python3 -m http.server 8080 --bind 127.0.0.1 --directory build"
   },
   "devDependencies": {
-    "autoprefixer": "^6.3.3",
-    "dart-sass": "^1.16.1",
-    "grunt": "^1.0.3",
-    "grunt-check-dependencies": "^0.6.0",
-    "grunt-contrib-clean": "^0.6.0",
-    "grunt-contrib-connect": "^0.8.0",
-    "grunt-contrib-copy": "^0.5.0",
-    "grunt-contrib-cssmin": "^0.12.2",
-    "grunt-contrib-requirejs": "^0.4.4",
-    "grunt-contrib-uglify": "^0.5.1",
-    "grunt-contrib-watch": "^0.6.1",
-    "grunt-eslint": "^10.0.0",
-    "grunt-git-describe": "^2.3.2",
-    "grunt-postcss": "^0.7.2",
-    "grunt-sass": "^3.0.2"
+    "autoprefixer": "10.6.1",
+    "eslint": "10.13.0",
+    "postcss": "8.5.31",
+    "requirejs": "2.3.8",
+    "sass": "1.106.1"
   },
   "dependencies": {
     "almond": "^0.3.3",
-    "chroma-js": "^2.1.0",
+    "chroma-js": "2.4.2",
     "d3": "^3.5.17",
     "ionicons": "^2.0.1",
     "leaflet": "^0.7.7",
     "leaflet-label": "^0.2.1-0",
     "leaflet-providers": "^1.5.0",
-    "moment": "^2.23.0",
+    "moment": "2.31.0",
     "numeraljs": "^1.5.6",
     "rbush": "^3.0.1",
-    "requirejs": "^2.3.2",
     "roboto-fontface": "^0.10.0",
     "tablesort": "3.0.2",
     "virtual-dom": "^2.1.1"
   },
-  "eslintConfig": {
-    "env": {
-      "browser": true,
-      "amd": true,
-      "es6": true,
-      "node": true
-    },
-    "globals": {
-      "showStat": false,
-      "attributeEntry": false,
-      "dictGet": false,
-      "getJSON": false,
-      "has_location": false,
-      "limit": false,
-      "localStorageTest": false,
-      "offline": false,
-      "one": false,
-      "online": false,
-      "showDistance": false,
-      "showTq": false,
-      "sortByKey": false,
-      "subtract": false,
-      "sum": false,
-      "trueDefault": false,
-      "getClients": false,
-      "getClientColor": false
-    }
+  "private": true,
+  "engines": {
+    "node": ">=20.19.0"
   }
 }
